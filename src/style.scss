@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.editor-container ol {
+  @apply .list-decimal;
+}
