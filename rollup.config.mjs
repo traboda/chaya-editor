@@ -33,6 +33,7 @@ export default [
       postcss({
         modules: true,
         minimize: true,
+
       }),
       terser(),
       nodePolyfills(),

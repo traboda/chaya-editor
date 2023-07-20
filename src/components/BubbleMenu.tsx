@@ -56,7 +56,7 @@ const BubbleMenu = ({ editor }: BubbleMenu) => {
                               className={clsx([
                                 `ri-${icon}`,
                                 'px-1.5 py-0.5 rounded-none hover:bg-gray-200',
-                                editor.isActive(name) ? 'font-bold text-primary' : 'font-normal',
+                                editor.isActive(name) ? 'font-semibold text-primary' : 'font-normal',
                               ])}
                           />
                       </ToolTip>

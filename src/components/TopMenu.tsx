@@ -5,9 +5,10 @@ import clsx from 'clsx';
 
 type TopMenu = {
   editor: Editor | null,
+  className?: string,
 };
 
-const TopMenu = ({ editor }: TopMenu) => {
+const TopMenu = ({ editor, className }: TopMenu) => {
 
   const controlCommands = [
     {
@@ -51,6 +52,18 @@ const TopMenu = ({ editor }: TopMenu) => {
       command: () => editor?.chain().focus().toggleStrike().run(),
     },
     {
+      name: 'superscript',
+      icon: 'superscript',
+      label: 'Superscript',
+      command: () => editor?.chain().focus().toggleSuperscript().run(),
+    },
+    {
+      name: 'subscript',
+      icon: 'subscript',
+      label: 'Subscript',
+      command: () => editor?.chain().focus().toggleSubscript().run(),
+    },
+    {
       name: 'code',
       icon: 'code-view',
       label: 'Code',
@@ -72,6 +85,26 @@ const TopMenu = ({ editor }: TopMenu) => {
       command: () => editor?.chain().focus().toggleBulletList().run(),
     },
     {
+      name: 'taskList',
+      icon: 'list-check-3',
+      label: 'Task List',
+      command: () => editor?.chain().focus().toggleTaskList().run(),
+    },
+    {
+      name: 'indent-increase',
+      icon: 'indent-increase',
+      label: 'Indent Increase',
+      command: () => editor?.chain().focus().sinkListItem('listItem').run(),
+      isDisabled: !editor?.can().sinkListItem('listItem'),
+    },
+    {
+      name: 'indent-decrease',
+      icon: 'indent-decrease',
+      label: 'Indent Decrease',
+      command: () => editor?.chain().focus().liftListItem('listItem').run(),
+      isDisabled: !editor?.can().liftListItem('listItem'),
+    },
+    {
       name: 'blockquote',
       icon: 'quote-text',
       label: 'Blockquote',
@@ -81,7 +114,7 @@ const TopMenu = ({ editor }: TopMenu) => {
   ];
 
   return editor ? (
-      <Card className="px-1 py-0 h-fit rounded-none">
+      <Card className={clsx(['px-1 py-0 h-fit rounded-none', className])}>
           <div className="flex items-center gap-0.5">
               <div className="flex items-center gap-0.5">
                   {controlCommands.map(({ name, icon, command }) => (
@@ -110,7 +143,7 @@ const TopMenu = ({ editor }: TopMenu) => {
                   ))}
               </div>
               <div className="flex items-center gap-0.5">
-                  {secondaryCommands.map(({ name, icon, command }) => (
+                  {secondaryCommands.filter((c) => !c.isDisabled).map(({ name, icon, command }) => (
                       <button
                           key={name}
                           onClick={command}
