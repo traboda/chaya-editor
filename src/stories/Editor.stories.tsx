@@ -61,7 +61,7 @@ const HTML_CONTENT = `
  </ol>
 `;
 
-const Template: Story = args => {
+const Template: Story<Editor> = args => {
 
   return (
       <Editor {...args} />

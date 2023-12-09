@@ -1,6 +1,6 @@
 import { themes } from '@storybook/theming';
 import ThemeContextDecorator from "./utils/ThemeContext";
-import '../src/style.scss';
+import '../src/styles.scss';
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

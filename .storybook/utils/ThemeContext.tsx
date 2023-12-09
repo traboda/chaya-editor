@@ -2,7 +2,6 @@ import React, { ReactNode } from 'react';
 import { useDarkMode } from 'storybook-dark-mode';
 import { DSRContextProvider } from 'chaya-ui';
 import 'chaya-ui/dist/style.css';
-import '../../dist/style.css';
 
 const defaultTheme = {
     primary: '#0f51c3',

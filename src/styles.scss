@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.editor-container {
+    ol, ul {
+        @apply list-inside space-y-0.5 my-2;
+        ol, ul {
+            @apply ml-4 list-inside space-y-0.5;
+        }
+    }
+    ul {
+        @apply list-disc;
+    }
+    ol {
+        @apply list-decimal;
+    }
+    & li > p {
+        display: inline;
+    }
+
+    & blockquote {
+        @apply border-l-4 border-gray-300 pl-2;
+    }
+
+    h1 {
+        @apply text-2xl font-bold;
+    }
+
+    h2 {
+        @apply text-xl font-bold;
+    }
+
+    h3 {
+        @apply text-lg font-bold;
+    }
+
+    a {
+        @apply text-blue-500 underline;
+    }
+
+    .task-list {
+        @apply list-none;
+        li label {
+            @apply mr-2;
+        }
+        li * {
+            @apply inline;
+        }
+    }
+
+    .ProseMirror {
+        outline: none !important;
+        min-height: 30vh;
+    }
+}

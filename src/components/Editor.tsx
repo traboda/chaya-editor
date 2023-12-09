@@ -1,18 +1,11 @@
 import React from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
-import { Underline } from '@tiptap/extension-underline';
-import { StarterKit } from '@tiptap/starter-kit';
-import ListItem from '@tiptap/extension-list-item';
-import BulletList from '@tiptap/extension-bullet-list';
-import OrderedList from '@tiptap/extension-ordered-list';
-import TaskItem from '@tiptap/extension-task-item';
-import TaskList from '@tiptap/extension-task-list';
-import Superscript from '@tiptap/extension-superscript';
-import Subscript from '@tiptap/extension-subscript';
 import clsx from 'clsx';
+import '../styles.scss';
 
 import BubbleMenu from './BubbleMenu';
 import TopMenu from './TopMenu';
+import { extensions } from './extensions';
 
 type Editor = {
   id?: string,
@@ -30,21 +23,9 @@ const Editor = ({
 }: Editor) => {
 
   const editor = useEditor({
-    extensions: [
-      StarterKit,
-      Underline,
-      ListItem,
-      BulletList,
-      OrderedList,
-      TaskList.configure({
-        HTMLAttributes: {
-          class: 'task-list',
-        },
-      }),
-      TaskItem,
-      Superscript,
-      Subscript,
-    ],
+    extensions: extensions({
+      onFetchVariables: () => ([]),
+    }),
     editable: !isDisabled,
     editorProps: {
       attributes: {

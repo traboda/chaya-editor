@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { BubbleMenu as TipTapBubbleMenu } from '@tiptap/react';
 import { Editor } from '@tiptap/core';
-import { Card, ToolTip } from 'chaya-ui';
+import { Card } from 'chaya-ui';
 import clsx from 'clsx';
 
 type BubbleMenu = {
@@ -9,6 +9,36 @@ type BubbleMenu = {
 };
 
 const BubbleMenu = ({ editor }: BubbleMenu) => {
+
+  const setLink = useCallback(() => {
+    if (!editor) {
+      return null;
+    }
+    editor.chain().focus().extendMarkRange('hyperlink').setHyperlink({ href: '' }).run();
+  }, [editor]);
+
+  const editHyperLinkText = useCallback(() => {
+    if (!editor) {
+      return null;
+    }
+    const { from } = editor.view.state.selection;
+    const selectedNode = editor.view.domAtPos(from - 1).node as HTMLElement;
+
+    let link: HTMLAnchorElement | null = null;
+
+    if (selectedNode?.nodeName === '#text') {
+      link = (selectedNode.parentNode as HTMLElement)?.closest('a');
+    } else {
+      link = selectedNode?.closest('a');
+    }
+
+    const newText = window.prompt('Edit Hyperlink Text', link?.innerText);
+
+    if (newText === null) return;
+
+    editor.chain().focus().editHyperLinkText(newText);
+  }, [editor]);
+
 
   const commands = [
     {
@@ -35,32 +65,36 @@ const BubbleMenu = ({ editor }: BubbleMenu) => {
       label: 'Strike',
       command: () => editor?.chain().focus().toggleStrike().run(),
     },
+    {
+      name: 'hyperlink',
+      icon: 'link',
+      label: 'Hyperlink',
+      command: setLink,
+    },
+    {
+      name: 'edit-link',
+      icon: 'link',
+      label: 'Edit Link',
+      isHidden: () => !editor?.isActive('hyperlink'),
+      command: editHyperLinkText,
+    },
   ];
 
   return editor ? (
       <TipTapBubbleMenu editor={editor} tippyOptions={{ duration: 100 }}>
-          <Card className="py-0 bg-gray-100 px-2">
+          <Card className="py-0 shadow dsr-bg-background px-2">
               <div className="flex items-center gap-0">
-                  {commands.map(({ name, icon, command, label }) => (
-                      <ToolTip
+                  {commands.filter((l) => !l.isHidden).map(({ name, icon, command, label }) => (
+                      <button
                           key={name}
-                          contentClassName="opacity-70"
-                          overlay={(
-                              <div>
-                                  {label}
-                              </div>
-                            )}
-                      >
-                          <button
-                              onClick={command}
-                              className={clsx([
-                                `ri-${icon}`,
-                                'px-1.5 py-0.5 rounded-none hover:bg-gray-200',
-                                editor.isActive(name) ? 'font-semibold text-primary' : 'font-normal',
-                              ])}
-                          />
-                      </ToolTip>
-
+                          title={label}
+                          onClick={command}
+                          className={clsx([
+                            `ri-${icon}`,
+                            'px-1.5 py-0.5 rounded-none hover:bg-gray-200 text-lg',
+                            editor.isActive(name) ? 'font-semibold text-primary' : 'font-normal',
+                          ])}
+                      />
                   ))}
               </div>
           </Card>
