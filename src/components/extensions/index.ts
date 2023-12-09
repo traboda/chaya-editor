@@ -17,40 +17,63 @@ import OrderedList from '@tiptap/extension-ordered-list';
 import Hyperlink from './link';
 import Variable from './variable';
 
-type ExtensionProps = {
-  onFetchVariables: (query: string) => string[] | Promise<string[]>;
+export type MentionConfig = {
+  allowSpaces?: boolean,
+  items?: string[],
+  onFetch?: (query: string) => string[] | Promise<string[]>,
 };
 
-export const extensions = (extension: ExtensionProps) => [
-  StarterKit.configure({
-    heading: {
-      levels: [1, 2, 3],
-    },
-    dropcursor: {
-      color: '#555',
-      width: 3,
-    },
-  }),
-  Image,
-  Superscript,
-  Subscript,
-  Color.configure({ types: [TextStyle.name, ListItem.name] }),
-  TextStyle.configure(),
-  TextAlign.configure({ types: [Paragraph.name, Heading.name] }),
-  Hyperlink,
-  Underline,
-  ListItem,
-  BulletList,
-  OrderedList,
-  TaskList.configure({
-    HTMLAttributes: {
-      class: 'task-list',
-    },
-  }),
-  TaskItem,
-  Variable.configure({
-    suggestion: {
-      items: ({ query }) => extension.onFetchVariables(query),
-    },
-  }),
-];
+type ExtensionProps = {
+  variables?: MentionConfig
+};
+
+export const extensions = ({
+  variables,
+}: ExtensionProps) => {
+
+  const items = [
+    StarterKit.configure({
+      heading: {
+        levels: [1, 2, 3],
+      },
+      dropcursor: {
+        color: '#555',
+        width: 3,
+      },
+    }),
+    Image,
+    Superscript,
+    Subscript,
+    Color.configure({ types: [TextStyle.name, ListItem.name] }),
+    TextStyle.configure(),
+    TextAlign.configure({ types: [Paragraph.name, Heading.name] }),
+    Hyperlink,
+    Underline,
+    ListItem,
+    BulletList,
+    OrderedList,
+    TaskList.configure({
+      HTMLAttributes: {
+        class: 'task-list',
+      },
+    }),
+    TaskItem,
+  ];
+
+  if (variables) {
+    items.push(
+      Variable.configure({
+        suggestion: {
+          items: ({ query }) =>
+            typeof variables.onFetch == 'function' ? variables.onFetch(query)
+              : variables.items && variables.items?.length > 0 ? variables.items.filter((item) => item.toLowerCase().includes(query.toLowerCase()))
+                : [],
+          allowSpaces: variables?.allowSpaces ?? false,
+        },
+      }),
+    );
+  }
+
+  return items;
+
+};

@@ -1,1 +1,1 @@
-export { default as Editor } from './components/Editor';
+export { default as ChayaEditor, ChayaEditorProps } from './components/Editor';

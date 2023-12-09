@@ -152,7 +152,6 @@ const Variable = Mention.extend({
   renderLabel({ node }) {
     return `{{ ${node.attrs.label ?? node.attrs.id} }}`;
   },
-
 });
 
 

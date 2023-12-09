@@ -4,27 +4,43 @@ import clsx from 'clsx';
 import '../styles.scss';
 
 import BubbleMenu from './BubbleMenu';
-import TopMenu from './TopMenu';
-import { extensions } from './extensions';
+import { extensions, MentionConfig } from './extensions';
+import MenuBar, { MenuBarProps } from './MenuBar';
 
-type Editor = {
+export type ChayaEditorProps = {
   id?: string,
   className?: string,
   editorClassName?: string,
-  topbarClassName?: string,
   value?: string,
-  onChange?: (value: string) => void,
   isDisabled?: boolean,
+  onChange?: (value: string) => void,
+  variables?: MentionConfig,
+  menuBar?: {
+    className?: string,
+    position?: 'TOP' | 'BOTTOM',
+    groups?: MenuBarProps['groups'],
+  },
+
 };
 
+const DEFAULT_MENU_BAR_GROUPS: MenuBarProps['groups'] = [
+  { actions: ['UNDO', 'REDO'] },
+  { actions: ['BOLD', 'ITALIC', 'UNDERLINE', 'STRIKE', 'SUPERSCRIPT', 'SUBSCRIPT', 'CODE', 'BLOCKQUOTE'] },
+  { actions: ['ORDERED_LIST', 'BULLET_LIST', 'TASK_LIST', 'INDENT_INCREASE', 'INDENT_DECREASE'] },
+];
 
-const Editor = ({
-  id, className, editorClassName, topbarClassName, value, onChange, isDisabled,
-}: Editor) => {
+const ChayaEditor = ({
+  id, className, editorClassName, value,
+  variables, menuBar = {
+    position: 'TOP',
+  },
+  isDisabled = false,
+  onChange = () => {},
+}: ChayaEditorProps) => {
 
   const editor = useEditor({
     extensions: extensions({
-      onFetchVariables: () => ([]),
+      variables,
     }),
     editable: !isDisabled,
     editorProps: {
@@ -39,20 +55,29 @@ const Editor = ({
     },
   });
 
+  const renderMenuBar = menuBar ? (
+      <MenuBar
+          editor={editor}
+          className={menuBar.className}
+          groups={menuBar.groups || DEFAULT_MENU_BAR_GROUPS}
+      />
+  ) : null;
+
   return (
-      <div id={id} className={className}>
-          <TopMenu editor={editor} className={topbarClassName} />
+      <div id={id} className={clsx(['border', className])}>
+          {menuBar && menuBar?.position === 'TOP' ? renderMenuBar : null}
           <BubbleMenu editor={editor} />
           <EditorContent
               className={clsx([
-                'w-full h-full rounded-none p-2 outline-0',
+                'w-full h-full rounded-none p-2 outline-0 dsr-bg-background shadow-inner',
                 'editor-container', editorClassName,
               ])}
               editor={editor}
           />
+          {menuBar && menuBar?.position === 'BOTTOM' ? renderMenuBar : null}
       </div>
   );
 
 };
 
-export default Editor;
+export default ChayaEditor;

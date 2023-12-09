@@ -1,11 +1,11 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 
-import { Editor } from '../index';
+import { ChayaEditor, ChayaEditorProps } from '../index';
 
 const meta: Meta = {
   title: 'Editor',
-  component: Editor,
+  component: ChayaEditor,
   parameters: {
     controls: { expanded: true },
   },
@@ -18,6 +18,11 @@ const HTML_CONTENT = `
   <b>Lorem ipsum</b> dolor sit amet, consectetur <s>adipiscing elit</s>. Praesent pretium porttitor erat, ac <u>commodo purus 
   gravida posuere.</u> Donec dui mi, venenatis vel odio vitae, vulputate bibendum risus. Donec metus leo, scelerisque 
   vitae nulla a, dictum pulvinar risus. <em>In cursus sapien non lorem dictum volutpat.</em>
+</p>
+
+<p> 
+
+    <a href="http://www.google.com">This is a link</a>
 </p>
 
 <p>
@@ -61,15 +66,28 @@ const HTML_CONTENT = `
  </ol>
 `;
 
-const Template: Story<Editor> = args => {
+const Template: Story<ChayaEditorProps> = args => {
 
   return (
-      <Editor {...args} />
+      <ChayaEditor {...args} />
   );
+
 };
 
-export const basic = Template.bind({});
+export const BasicEditor = Template.bind({});
 
-basic.args = {
+BasicEditor.args = {
   value: HTML_CONTENT,
 };
+
+export const WithVariables = Template.bind({});
+
+WithVariables.args = {
+  value: HTML_CONTENT,
+  variables: {
+    items: [
+      'Name', 'Email', 'Phone', 'Address', 'City', 'State', 'Country', 'Zip Code',
+    ],
+  },
+};
+

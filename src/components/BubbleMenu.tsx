@@ -82,7 +82,7 @@ const BubbleMenu = ({ editor }: BubbleMenu) => {
 
   return editor ? (
       <TipTapBubbleMenu editor={editor} tippyOptions={{ duration: 100 }}>
-          <Card className="py-0 shadow dsr-bg-background px-2">
+          <div className="py-0 shadow dsr-bg-background-lighten-1 px-2">
               <div className="flex items-center gap-0">
                   {commands.filter((l) => !l.isHidden).map(({ name, icon, command, label }) => (
                       <button
@@ -97,7 +97,7 @@ const BubbleMenu = ({ editor }: BubbleMenu) => {
                       />
                   ))}
               </div>
-          </Card>
+          </div>
       </TipTapBubbleMenu>
   ) : <div />;
 

@@ -44,7 +44,7 @@ const previewHyperlinkModal = (options: any) => {
   actions.append(editButton, copyButton, removeButton);
 
   const hyperlinkModal = document.createElement('div');
-  hyperlinkModal.classList.add('bg-background', 'p-2', 'border', 'z-[7500]', 'rounded', 'shadow', 'flex', 'items-center', 'gap-x-2');
+  hyperlinkModal.classList.add('dsr-bg-background-lighten-1', 'p-2', 'border', 'z-[7500]', 'rounded', 'shadow', 'flex', 'items-center', 'gap-x-2');
   hyperlinkModal.append(preview, actions);
 
   return hyperlinkModal;
