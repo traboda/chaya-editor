@@ -15,7 +15,7 @@ export const VariableList = forwardRef((props: any, ref) => {
     const item = props.items[index];
 
     if (item) {
-      props.command({ id: item });
+      props.command({ id: item.id, label: item.label });
     }
   };
 
@@ -48,8 +48,8 @@ export const VariableList = forwardRef((props: any, ref) => {
       <div
           className="p-1 border border-neutral-200/50 rounded shadow flex flex-col gap-0.5 dsr-bg-background-lighten-1"
       >
-          {props?.items?.length ? (
-            props?.items?.map((item: string, index: number) => (
+          {props?.items?.length && props.items?.some((i: { id: string }) => i?.id) ? (
+            props?.items?.map((item: { label: string, id: string }, index: number) => (
                 <Button
                     variant="link"
                     color="contrast"
@@ -60,13 +60,11 @@ export const VariableList = forwardRef((props: any, ref) => {
                       selectedIndex === index ? '!bg-gray-300/50' : undefined,
                     ])}
                 >
-                    {item}
+                    {item.label}
                 </Button>
             ))
           ) : (
-              <div
-                  className="mly-flex mly-w-full mly-items-center mly-space-x-2 mly-rounded-md mly-px-2 mly-py-1 mly-text-left mly-text-sm mly-text-gray-900 hover:mly-bg-gray-100"
-              >
+              <div>
                   No result
               </div>
           )}
@@ -150,7 +148,7 @@ const Variable = Mention.extend({
 }).configure({
   suggestion,
   renderLabel({ node }) {
-    return `{{ ${node.attrs.label ?? node.attrs.id} }}`;
+    return `{{ ${node.attrs.id} }}`;
   },
 });
 

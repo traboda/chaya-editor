@@ -1,0 +1,113 @@
+import { Meta, Story, Title, Primary } from '@storybook/blocks';
+import * as VariableStories from './Variables.stories';
+
+<Meta title="Variables" of={VariableStories} />
+
+<Title>Variables</Title>
+
+Chaya Editor supports variables, which allow users to create templates or placeholders for content.
+
+Users are prompted the available variables when they type `{{` in the editor.
+
+<Primary />
+
+The variables feature is disabled by default, and can be enabled by passing the `variables` prop to the editor.
+
+```tsx
+<ChayaEditor variables={} />
+```
+
+The variables prop accepts an object with the following properties:
+
+```tsx
+export type SuggestionItem = {
+  label: string,
+  id: string,
+};
+
+export type VariablesConfig = {
+  allowSpaces?: boolean,
+  highlightClassName?: string,
+  items?: SuggestionItem[],
+  onFetch?: (query: string) => SuggestionItem[] | Promise<SuggestionItem[]>,
+};
+```
+
+For example, to enable variables, and highlight them with a blue color, the following can be passed:
+
+```tsx
+<ChayaEditor
+  variables={{
+    allowSpaces: false,
+    highlightClassName: 'text-blue-500',
+    items: [
+      { id: 'name', label: 'Name' },
+      { id: 'email', label: 'Email' },
+      { id: 'phone', label: 'Phone' },
+      { id: 'address', label: 'Address' },
+      { id: 'city', label: 'City' },
+    ],
+  }}
+/>
+```
+
+## Passing Supported Variables
+
+Supported variables can be passed to the editor for prompting the user, either as an array - `items` or as a promise function - `onFetch`.
+
+### As an pre-defined array
+
+```tsx
+<ChayaEditor
+  variables={{
+    items: [
+      { id: 'name', label: 'Name' },
+      { id: 'email', label: 'Email' },
+      { id: 'phone', label: 'Phone' },
+      { id: 'address', label: 'Address' },
+      { id: 'city', label: 'City' },
+    ],
+  }}
+/>
+```
+
+### As a promise function
+
+```tsx
+<ChayaEditor
+  variables={{
+    onFetch: (pokemon: string) => {
+        const pokeAPI = 'https://pokeapi.co/api/v2/pokemon';
+        return fetch(`${pokeAPI}/${pokemon}`)
+          .then((res) => res.json())
+          .then((res) => {
+            return [
+              { id: res.name, label: res.name },
+            ];
+          });
+    },
+  }}
+/>
+```
+
+Here is how it looks in action:
+
+<Story story={VariableStories.AsyncVariables} />
+
+
+## Highlighting Variables
+
+Variables can be highlighted using classNames set using the `highlightClassName` property in `variables` prop.
+
+These classnames shall not be outputted in the final HTML, and are only applied inside the editor.
+
+```tsx
+<ChayaEditor
+  variables={{
+    highlightClassName: 'bg-yellow-200/50 text-blue-600 p-1 rounded',
+    items: items,
+  }}
+/>
+```
+
+<Story story={VariableStories.VariablesHighlighted} />

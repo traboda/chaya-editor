@@ -17,14 +17,20 @@ import OrderedList from '@tiptap/extension-ordered-list';
 import Hyperlink from './link';
 import Variable from './variable';
 
-export type MentionConfig = {
+export type SuggestionItem = {
+  label: string,
+  id: string,
+};
+
+export type VariablesConfig = {
   allowSpaces?: boolean,
-  items?: string[],
-  onFetch?: (query: string) => string[] | Promise<string[]>,
+  highlightClassName?: string,
+  items?: SuggestionItem[],
+  onFetch?: (query: string) => SuggestionItem[] | Promise<SuggestionItem[]>,
 };
 
 type ExtensionProps = {
-  variables?: MentionConfig
+  variables?: VariablesConfig
 };
 
 export const extensions = ({
@@ -66,9 +72,13 @@ export const extensions = ({
         suggestion: {
           items: ({ query }) =>
             typeof variables.onFetch == 'function' ? variables.onFetch(query)
-              : variables.items && variables.items?.length > 0 ? variables.items.filter((item) => item.toLowerCase().includes(query.toLowerCase()))
+              : variables.items && variables.items?.length > 0 ? variables.items.filter((item) => item.id.toLowerCase().includes(query.toLowerCase()))
                 : [],
           allowSpaces: variables?.allowSpaces ?? false,
+        },
+        // renderLabel: ({ node }) => node.attrs?.id,
+        renderHTMLAttributes: {
+          class: variables.highlightClassName,
         },
       }),
     );

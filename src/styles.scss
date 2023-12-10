@@ -4,6 +4,8 @@
 
 .editor-container {
 
+    @apply text-base;
+
     ol, ul {
         @apply list-inside space-y-0.5 my-2;
         ol, ul {

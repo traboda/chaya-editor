@@ -80,14 +80,19 @@ BasicEditor.args = {
   value: HTML_CONTENT,
 };
 
-export const WithVariables = Template.bind({});
+export const DisabledEditor = Template.bind({});
 
-WithVariables.args = {
+DisabledEditor.args = {
   value: HTML_CONTENT,
-  variables: {
-    items: [
-      'Name', 'Email', 'Phone', 'Address', 'City', 'State', 'Country', 'Zip Code',
-    ],
-  },
+  isDisabled: true,
 };
 
+
+export const WithBottomMenuBar = Template.bind({});
+
+WithBottomMenuBar.args = {
+  value: HTML_CONTENT,
+  menuBar: {
+    position: 'BOTTOM',
+  },
+};

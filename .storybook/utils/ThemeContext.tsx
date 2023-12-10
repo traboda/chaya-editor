@@ -26,8 +26,7 @@ const ThemeContextDecorator = ({ children }: { children: ReactNode }) => {
 
     return (
         <div
-            className="p-4"
-            style={{ background: theme.background, color: theme.color }}
+            style={{ background: useDarkMode() ? '#111' : 'white', color: theme.color }}
         >
             <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
             <DSRContextProvider
