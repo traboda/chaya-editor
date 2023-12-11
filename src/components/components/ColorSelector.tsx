@@ -24,7 +24,6 @@ const ColorSelector = ({ editor }: { editor: Editor }) => {
 
   useEffect(() => {
     editor.on('selectionUpdate', () => {
-      console.log('editor update', editor.getAttributes('textStyle')?.color);
       setColorValue(editor.getAttributes('textStyle')?.color || '#000000');
     });
   }, [editor]);
@@ -35,7 +34,7 @@ const ColorSelector = ({ editor }: { editor: Editor }) => {
               <button
                   className="ri-font-color px-1 py-0.5 text-lg rounded hover:bg-neutral-300/50 group-active:bg-neutral-300/50"
               />
-      )}
+          )}
           align="start"
           containerClassName="w-[300px] max-w-screen"
       >

@@ -10,7 +10,15 @@
 
 }
 
-.editor-container {
+.chaya-editor-container {
+
+    &::-webkit-scrollbar {
+        width: 0.6rem;
+        @apply dark:bg-neutral-600/80 bg-neutral-200/75;
+    }
+    &::-webkit-scrollbar-thumb {
+        @apply dark:bg-neutral-500 bg-neutral-300;
+    }
 
     @apply text-base;
 
@@ -63,5 +71,35 @@
     .ProseMirror {
         outline: none !important;
         min-height: 30vh;
+    }
+
+    table {
+        @apply table-auto;
+        th {
+            @apply bg-neutral-200 dark:bg-neutral-600;
+        }
+        td {
+            @apply border border-neutral-200 dark:border-neutral-600;
+        }
+    }
+    .chaya-editor-table-add-column, .chaya-editor-table-add-row {
+        @apply flex items-center justify-center bg-neutral-200 dark:bg-neutral-600 rounded invisible text-lg cursor-pointer;
+    }
+    .chaya-editor-table-add-row {
+        @apply flex-col h-[22px] w-full mt-2;
+    }
+    .chaya-editor-table-add-column {
+        @apply w-[20px];
+    }
+    .chaya-editor-table {
+        @apply relative w-fit;
+    }
+    .chaya-editor-table:hover {
+        .chaya-editor-table-add-column, .chaya-editor-table-add-row {
+            @apply visible;
+        }
+    }
+    .chaya-editor-table-wrapper {
+        @apply flex gap-2;
     }
 }

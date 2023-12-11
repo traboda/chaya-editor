@@ -36,7 +36,7 @@ const DEFAULT_MENU_BAR_GROUPS: EditorMenuGroupType[] = [
   },
   {
     commands: [
-      { name: 'SUPERSCRIPT' }, { name: 'SUBSCRIPT' }, { name: 'CODE' }, { name: 'BLOCKQUOTE' },
+      { name: 'SUPERSCRIPT' }, { name: 'SUBSCRIPT' }, { name: 'CODE' }, { name: 'BLOCKQUOTE' }, { name: 'TABLE' },
     ],
   },
   { commands: [ { name: 'ORDERED_LIST' }, { name: 'BULLET_LIST' }, { name: 'TASK_LIST' }, { name: 'INDENT_INCREASE' }, { name: 'INDENT_DECREASE' }] },
@@ -103,14 +103,14 @@ const ChayaEditor = ({
   ) : null;
 
   return editor ? (
-      <div id={id} className={clsx(['border h-full flex flex-col', className])}>
+      <div id={id} className={clsx(['border h-full flex flex-col chaya-editor', className])}>
           {menuBar && menuBar?.position === 'TOP' ? renderMenuBar : null}
           {bubbleMenu && <BubbleMenu editor={editor} groups={bubbleMenu?.groups || DEFAULT_BUBBLE_MENU_COMMANDS} />}
           <EditorContent
               className={clsx([
                 'w-full h-fit overflow-y-auto rounded-none p-4 outline-0 shadow-inner',
                 'dark:bg-neutral-900 dark:text-neutral-100 bg-neutral-50',
-                'editor-container', editorClassName,
+                'chaya-editor-container', editorClassName,
               ])}
               editor={editor}
           />

@@ -21,7 +21,7 @@ const EditorMenu = ({ editor, groups }: EditorMenuProps) => (
         {groups.map((group, index) => {
           const commandNames = group.commands.filter((c) => c.name).map((c) => c.name) as MenuCommands[];
           const commands = getMenuCommands(editor, commandNames);
-          return (
+          return commands?.length > 0 ? (
               <div className={clsx(['flex items-center py-1 justify-center gap-0.5 border-neutral-200/50', groups?.length == 1 ? 'px-0.5' : index + 1 == groups.length ? 'pl-1 pr-0' : 'border-r px-2'])}>
                   {group.commands.map(({ customCommand, name }) => {
                     const command = name ? commands.find((c) => c.name === name) : customCommand?.(editor);
@@ -37,7 +37,7 @@ const EditorMenu = ({ editor, groups }: EditorMenuProps) => (
                     ) : null;
                   })}
               </div>
-          );
+          ) : null;
         })}
     </div>
 );
