@@ -29,7 +29,16 @@ export type ChayaEditorProps = {
 const DEFAULT_MENU_BAR_GROUPS: EditorMenuGroupType[] = [
   { commands: [ { name: 'UNDO' }, { name: 'REDO' }] },
   { commands: [ { name: 'FONT_SIZE' } ] },
-  { commands: [ { name: 'BOLD' }, { name: 'ITALIC' }, { name: 'UNDERLINE' }, { name: 'STRIKE' }, { name: 'SUPERSCRIPT' }, { name: 'SUBSCRIPT' }, { name: 'CODE' }, { name: 'BLOCKQUOTE' }] },
+  { commands: [
+    { name: 'BOLD' }, { name: 'ITALIC' }, { name: 'UNDERLINE' }, { name: 'STRIKE' },
+    { name: 'COLOR' },
+  ],
+  },
+  {
+    commands: [
+      { name: 'SUPERSCRIPT' }, { name: 'SUBSCRIPT' }, { name: 'CODE' }, { name: 'BLOCKQUOTE' },
+    ],
+  },
   { commands: [ { name: 'ORDERED_LIST' }, { name: 'BULLET_LIST' }, { name: 'TASK_LIST' }, { name: 'INDENT_INCREASE' }, { name: 'INDENT_DECREASE' }] },
 ];
 

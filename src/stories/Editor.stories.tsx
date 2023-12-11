@@ -15,7 +15,6 @@ const meta: Meta = {
 
 export default meta;
 
-
 const Template: Story<ChayaEditorProps> = args => {
 
   return (
