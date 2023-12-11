@@ -37,6 +37,7 @@ const variables = [
 ];
 
 export const BasicUsageWithVariables: Story = {
+  name: 'Basic Usage',
   args: {
     variables: {
       highlightClassName: '',
@@ -81,6 +82,7 @@ const VariableStoryTemplate = (args: ChayaEditorProps) => {
 };
 
 export const VariablesHighlighted: Story = {
+  name: 'Variables Highlighted',
   args: {
     variables: {
       highlightClassName: 'bg-yellow-200/50 text-blue-600 p-1 rounded',
@@ -92,6 +94,7 @@ export const VariablesHighlighted: Story = {
 };
 
 export const AsyncVariables: Story = {
+  name: 'Variables fetched Asynchronously',
   args: {
     variables: {
       onFetch: (pokemon: string) => {

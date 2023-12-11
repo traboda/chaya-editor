@@ -1,8 +1,11 @@
+import React, { useCallback } from 'react';
 import { Editor } from '@tiptap/core';
-import { useCallback } from 'react';
+
+import FontSizeSelector from './components/FontSizeSelector';
 
 export type MenuCommands = (
   'UNDO' | 'REDO' |
+  'FONT_SIZE' |
   'BOLD' | 'ITALIC' | 'UNDERLINE' | 'STRIKE' | 'SUPERSCRIPT' | 'SUBSCRIPT' | 'CODE' | 'BLOCKQUOTE' |
   'ORDERED_LIST' | 'BULLET_LIST' | 'TASK_LIST' | 'INDENT_INCREASE' | 'INDENT_DECREASE' |
   'HYPERLINK' | 'EDIT_HYPERLINK'
@@ -15,6 +18,7 @@ export type MenuCommandConfig<Type> = {
   onClick: () => void,
   isHidden?: boolean,
   isActive?: (editor: Editor) => boolean,
+  customRender?: (editor: Editor) => React.ReactElement,
 };
 
 const getMenuCommands = (editor: Editor, commandNames: MenuCommands[]) => {
@@ -50,6 +54,13 @@ const getMenuCommands = (editor: Editor, commandNames: MenuCommands[]) => {
 
 
   const COMMANDS_LIST: MenuCommandConfig<MenuCommands>[] = [
+    {
+      name: 'FONT_SIZE',
+      icon: 'ri-font-size',
+      label: 'Font Size',
+      onClick: () => null,
+      customRender: (editor) => <FontSizeSelector editor={editor} />,
+    },
     {
       name: 'UNDO',
       icon: 'ri-arrow-go-back-line',

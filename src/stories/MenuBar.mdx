@@ -1,0 +1,47 @@
+import {Meta, Primary, Story, Title} from '@storybook/blocks';
+import * as MenuStories from './MenuBar.stories';
+
+<Meta title="Menu Bar" of={MenuStories} />
+
+<Title>Menu Bar</Title>
+
+Chaya Editor supports a variety of menu types, each of which can be customized and extended. Menu Bar is one of the
+menu types supported by Chaya Editor. Menu Bar allows you to set fixed menus at the top or bottom of the editor, that
+can be used to perform actions on the editor.
+
+By default, the menubar is enabled with a set of common actions, and is positioned at the top of the editor.
+
+<Primary />
+
+
+## Disabling / Hiding MenuBar
+
+The menubar can be disabled by setting the `menuBar` prop to `false`.
+
+```tsx
+<ChayaEditor
+  menuBar={false}
+/>
+```
+
+<Story story={MenuStories.WithoutMenuBar} />
+
+## Positioning
+
+The menubar can be positioned at the top or bottom of the editor.
+
+```tsx
+<ChayaEditor
+  menuBar={{
+    position: 'BOTTOM', // 'TOP' | 'BOTTOM'
+  }}
+/>
+```
+
+### Top Positioned Menu Bar
+
+<Story story={MenuStories.BasicPreviewOfMenuBar} />
+
+### Bottom Positioned Menu Bar
+
+<Story story={MenuStories.BottomPositionedMenuBar} />

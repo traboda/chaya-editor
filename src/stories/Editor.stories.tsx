@@ -3,6 +3,8 @@ import { Meta, Story } from '@storybook/react';
 
 import { ChayaEditor, ChayaEditorProps } from '../index';
 
+import { SAMPLE_EDITOR_CONTENT } from './utils/sample-content';
+
 const meta: Meta = {
   title: 'Editor',
   component: ChayaEditor,
@@ -13,58 +15,6 @@ const meta: Meta = {
 
 export default meta;
 
-const HTML_CONTENT = `
-<p>
-  <b>Lorem ipsum</b> dolor sit amet, consectetur <s>adipiscing elit</s>. Praesent pretium porttitor erat, ac <u>commodo purus 
-  gravida posuere.</u> Donec dui mi, venenatis vel odio vitae, vulputate bibendum risus. Donec metus leo, scelerisque 
-  vitae nulla a, dictum pulvinar risus. <em>In cursus sapien non lorem dictum volutpat.</em>
-</p>
-
-<p> 
-
-    <a href="http://www.google.com">This is a link</a>
-</p>
-
-<p>
-<b>This is a bold text</b>
-</p>
-
-<p>
-<i>This is an italic text</i>
-</p>
-
-<p>
-<u>This is an underline text</u>
-</p>
-
-<p>
-<s>This is a strike text</s>
-</p>
-
-<ul>
-  <li>Item 1</li>
-  <li>Item 2</li>
-  <li>
-      Item 3
-      <ul>
-        <li>Item 3.1</li>
-        <li>Item 3.2</li>
-      </ul>  
-  </li>
-</ul>
-  
-<ol>
-    <li>Item 1</li>
-    <li>Item 2</li>
-    <li>
-      Item 3
-      <ol>
-        <li>Item 3.1</li>
-        <li>Item 3.2</li>
-      </ol>  
-  </li>
- </ol>
-`;
 
 const Template: Story<ChayaEditorProps> = args => {
 
@@ -77,13 +27,13 @@ const Template: Story<ChayaEditorProps> = args => {
 export const BasicEditor = Template.bind({});
 
 BasicEditor.args = {
-  value: HTML_CONTENT,
+  value: SAMPLE_EDITOR_CONTENT,
 };
 
 export const DisabledEditor = Template.bind({});
 
 DisabledEditor.args = {
-  value: HTML_CONTENT,
+  value: SAMPLE_EDITOR_CONTENT,
   isDisabled: true,
 };
 
@@ -91,7 +41,7 @@ DisabledEditor.args = {
 export const WithBottomMenuBar = Template.bind({});
 
 WithBottomMenuBar.args = {
-  value: HTML_CONTENT,
+  value: SAMPLE_EDITOR_CONTENT,
   menuBar: {
     position: 'BOTTOM',
   },

@@ -19,15 +19,16 @@ export type ChayaEditorProps = {
     className?: string,
     position?: 'TOP' | 'BOTTOM',
     groups?: EditorMenuGroupType[],
-  },
+  } | false,
   bubbleMenu?: {
     className?: string,
     groups?: EditorMenuGroupType[],
-  },
+  } | false,
 };
 
 const DEFAULT_MENU_BAR_GROUPS: EditorMenuGroupType[] = [
   { commands: [ { name: 'UNDO' }, { name: 'REDO' }] },
+  { commands: [ { name: 'FONT_SIZE' } ] },
   { commands: [ { name: 'BOLD' }, { name: 'ITALIC' }, { name: 'UNDERLINE' }, { name: 'STRIKE' }, { name: 'SUPERSCRIPT' }, { name: 'SUBSCRIPT' }, { name: 'CODE' }, { name: 'BLOCKQUOTE' }] },
   { commands: [ { name: 'ORDERED_LIST' }, { name: 'BULLET_LIST' }, { name: 'TASK_LIST' }, { name: 'INDENT_INCREASE' }, { name: 'INDENT_DECREASE' }] },
 ];
@@ -83,8 +84,8 @@ const ChayaEditor = ({
   const renderMenuBar = menuBar && editor ? (
       <div
           className={clsx([
-            'px-2 py-1 h-fit rounded-none dsr-bg-background-lighten-1',
-            menuBar?.position === 'BOTTOM' ? 'border-t' : 'border-b',
+            'px-2 h-fit rounded-none dsr-bg-background-lighten-1 sticky z-10 border-neutral-300/50',
+            menuBar?.position === 'BOTTOM' ? 'border-t bottom-0' : 'border-b top-0',
             menuBar?.className,
           ])}
       >
@@ -93,12 +94,13 @@ const ChayaEditor = ({
   ) : null;
 
   return editor ? (
-      <div id={id} className={clsx(['border', className])}>
+      <div id={id} className={clsx(['border h-full flex flex-col', className])}>
           {menuBar && menuBar?.position === 'TOP' ? renderMenuBar : null}
           {bubbleMenu && <BubbleMenu editor={editor} groups={bubbleMenu?.groups || DEFAULT_BUBBLE_MENU_COMMANDS} />}
           <EditorContent
               className={clsx([
-                'w-full h-full rounded-none p-2 outline-0 dsr-bg-background shadow-inner',
+                'w-full h-fit overflow-y-auto rounded-none p-4 outline-0 shadow-inner',
+                'dark:bg-neutral-900 dark:text-neutral-100 bg-neutral-50',
                 'editor-container', editorClassName,
               ])}
               editor={editor}

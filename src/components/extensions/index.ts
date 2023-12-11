@@ -16,6 +16,7 @@ import OrderedList from '@tiptap/extension-ordered-list';
 
 import Hyperlink from './link';
 import Variable from './variable';
+import FontSize from './font-size';
 
 export type SuggestionItem = {
   label: string,
@@ -40,7 +41,7 @@ export const extensions = ({
   const items = [
     StarterKit.configure({
       heading: {
-        levels: [1, 2, 3],
+        levels: [1, 2, 3, 4],
       },
       dropcursor: {
         color: '#555',
@@ -64,6 +65,7 @@ export const extensions = ({
       },
     }),
     TaskItem,
+    FontSize,
   ];
 
   if (variables) {

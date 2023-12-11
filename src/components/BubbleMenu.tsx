@@ -10,7 +10,7 @@ export type BubbleMenu = EditorMenuProps & {
 
 const BubbleMenu = ({ editor, groups, className }: BubbleMenu) => (
     <TipTapBubbleMenu editor={editor} tippyOptions={{ duration: 100 }}>
-        <div className={clsx(['py-0 shadow dsr-bg-background-lighten-1 px-2', className])}>
+        <div className={clsx(['shadow dsr-bg-background-lighten-1 rounded px-0.5', className])}>
             <EditorMenu editor={editor} groups={groups} />
         </div>
     </TipTapBubbleMenu>

@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+.chaya-editor-font-size-dropdown ul {
+    max-height: 35vh!important;
+}
+.chaya-editor-font-size-dropdown button {
+    padding: 0.25rem 0.5rem!important;
+
+}
+
 .editor-container {
 
     @apply text-base;
