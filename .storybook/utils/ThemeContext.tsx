@@ -1,6 +1,8 @@
 import React, { ReactNode } from 'react';
 import { useDarkMode } from 'storybook-dark-mode';
 import { DSRContextProvider } from 'chaya-ui';
+import { nanoid } from 'nanoid';
+
 import 'chaya-ui/dist/style.css';
 
 const defaultTheme = {
@@ -25,10 +27,7 @@ const ThemeContextDecorator = ({ children }: { children: ReactNode }) => {
     const theme = useDarkMode() ? darkTheme : defaultTheme;
 
     return (
-        <div
-            style={{ background: useDarkMode() ? '#111' : 'white', color: theme.color }}
-            className={useDarkMode() ? 'dark dsr-dark' : ''}
-        >
+        <div key={nanoid()}>
             <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
             <DSRContextProvider
                 theme={theme}

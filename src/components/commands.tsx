@@ -10,6 +10,7 @@ export type MenuCommands = (
   'FONT_SIZE' | 'COLOR' | 'TABLE' |
   'BOLD' | 'ITALIC' | 'UNDERLINE' | 'STRIKE' | 'SUPERSCRIPT' | 'SUBSCRIPT' | 'CODE' | 'BLOCKQUOTE' |
   'ORDERED_LIST' | 'BULLET_LIST' | 'TASK_LIST' | 'INDENT_INCREASE' | 'INDENT_DECREASE' |
+  'LEFT_ALIGN' | 'CENTER_ALIGN' | 'RIGHT_ALIGN' | 'JUSTIFY_ALIGN' |
   'HYPERLINK' | 'EDIT_HYPERLINK'
 );
 
@@ -189,6 +190,34 @@ const getMenuCommands = (editor: Editor, commandNames: MenuCommands[]) => {
       label: 'Edit Link',
       isHidden: !editor?.isActive('hyperlink'),
       onClick: editHyperLinkText,
+    },
+    {
+      name: 'LEFT_ALIGN',
+      icon: 'ri-align-left',
+      label: 'Left Align',
+      onClick: () => editor?.chain().focus().setTextAlign('left').run(),
+      isHidden: !editor?.can().setTextAlign('left'),
+    },
+    {
+      name: 'CENTER_ALIGN',
+      icon: 'ri-align-center',
+      label: 'Center Align',
+      onClick: () => editor?.chain().focus().setTextAlign('center').run(),
+      isHidden: !editor?.can().setTextAlign('center'),
+    },
+    {
+      name: 'RIGHT_ALIGN',
+      icon: 'ri-align-right',
+      label: 'Right Align',
+      onClick: () => editor?.chain().focus().setTextAlign('right').run(),
+      isHidden: !editor?.can().setTextAlign('right'),
+    },
+    {
+      name: 'JUSTIFY_ALIGN',
+      icon: 'ri-align-justify',
+      label: 'Justify Align',
+      onClick: () => editor?.chain().focus().setTextAlign('justify').run(),
+      isHidden: !editor?.can().setTextAlign('justify'),
     },
   ];
 

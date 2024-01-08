@@ -1,13 +1,14 @@
 const path = require('path');
+
 module.exports = {
   "stories": ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
-
   "addons": [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
     "@storybook/addon-styling",
     '@storybook/addon-a11y',
+    "@storybook/theming",
     "storybook-dark-mode"
   ],
 
@@ -28,6 +29,7 @@ module.exports = {
   },
 
   "docs": {
-    "theme": "dark",
+    autodocs: 'tag',
+    defaultName: 'Docs',
   },
 };

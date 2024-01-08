@@ -3,10 +3,14 @@
   "version": "1.0.0-beta.1",
   "description": "A powerful and flexible text editor for React, built with Tiptap.",
   "scripts": {
-    "build": "rm -rf dist && rollup -c",
+    "tailwind": "tailwindcss -i ./src/style.scss -o ./dist/style.css -c ./tailwind.config.cjs",
+    "build-components": "rm -rf dist && rollup -c",
+    "build-tailwind": "npm run tailwind -- --minify",
+    "build": "npm run build-components && npm run build-tailwind",
     "lint": "eslint src/ --ext .ts,.tsx",
     "lint-fix": "eslint --fix src/ --ext .ts,.tsx",
-    "storybook": "storybook dev -p 6006",
+    "watch-tailwind": "npm run tailwind -- --watch",
+    "dev": "concurrently \"npm run watch-tailwind\" \"storybook dev -p 6006\"",
     "build-storybook": "npm run build-tailwind && storybook build",
     "type-check": "tsc --noEmit --emitDeclarationOnly false"
   },
@@ -65,7 +69,6 @@
     "@typescript-eslint/parser": "^5.48.2",
     "autoprefixer": "^10.4.14",
     "babel-loader": "^8.3.0",
-    "chaya-ui": "^1.0.0-beta.72",
     "clsx": "^1.2.1",
     "concurrently": "^8.2.0",
     "css-loader": "^6.7.3",
@@ -100,6 +103,7 @@
   ],
   "types": "dist/index.d.ts",
   "dependencies": {
+    "chaya-ui": "1.0.0-beta.74",
     "@docs.plus/extension-hyperlink": "^1.5.2",
     "@tiptap/extension-color": "^2.1.13",
     "@tiptap/extension-image": "^2.1.13",

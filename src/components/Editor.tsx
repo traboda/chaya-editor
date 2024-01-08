@@ -1,7 +1,6 @@
 import React from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import clsx from 'clsx';
-import '../styles.scss';
 
 import BubbleMenu from './BubbleMenu';
 import { extensions, VariablesConfig } from './extensions';
@@ -29,10 +28,16 @@ export type ChayaEditorProps = {
 const DEFAULT_MENU_BAR_GROUPS: EditorMenuGroupType[] = [
   { commands: [ { name: 'UNDO' }, { name: 'REDO' }] },
   { commands: [ { name: 'FONT_SIZE' } ] },
-  { commands: [
-    { name: 'BOLD' }, { name: 'ITALIC' }, { name: 'UNDERLINE' }, { name: 'STRIKE' },
-    { name: 'COLOR' },
-  ],
+  {
+    commands: [
+      { name: 'BOLD' }, { name: 'ITALIC' }, { name: 'UNDERLINE' }, { name: 'STRIKE' },
+      { name: 'COLOR' },
+    ],
+  },
+  {
+    commands: [
+      { name: 'LEFT_ALIGN' }, { name: 'CENTER_ALIGN' }, { name: 'RIGHT_ALIGN' }, { name: 'JUSTIFY_ALIGN' },
+    ],
   },
   {
     commands: [
@@ -43,7 +48,11 @@ const DEFAULT_MENU_BAR_GROUPS: EditorMenuGroupType[] = [
 ];
 
 const DEFAULT_BUBBLE_MENU_COMMANDS: EditorMenuGroupType[] = [
-  { commands: [ { name: 'BOLD' }, { name: 'ITALIC' }, { name: 'UNDERLINE' }, { name: 'STRIKE' }, { name: 'HYPERLINK' }, { name: 'EDIT_HYPERLINK' }] },
+  {
+    commands: [
+      { name: 'BOLD' }, { name: 'ITALIC' }, { name: 'UNDERLINE' }, { name: 'STRIKE' }, { name: 'HYPERLINK' }, { name: 'EDIT_HYPERLINK' },
+    ],
+  },
 ];
 
 const ChayaEditor = ({
