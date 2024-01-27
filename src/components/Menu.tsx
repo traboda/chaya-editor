@@ -30,7 +30,7 @@ const EditorMenu = ({ editor, groups }: EditorMenuProps) => (
                             onClick={command?.onClick}
                             className={clsx([
                               command?.icon,
-                              (typeof command.isActive === 'function' ? command.isActive(editor) : editor.isActive(command.name.toLowerCase())) ? ' font-bold' : 'opacity-80',
+                              (typeof command.isActive === 'function' ? command.isActive(editor) : editor.isActive(command.name.toLowerCase())) ? 'font-semibold' : 'opacity-80',
                               'px-1.5 py-0.5 text-lg rounded hover:bg-neutral-300/50',
                             ])}
                         />

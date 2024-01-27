@@ -1,4 +1,5 @@
 import StarterKit from '@tiptap/starter-kit';
+import Placeholder from '@tiptap/extension-placeholder';
 import { Color } from '@tiptap/extension-color';
 import ListItem from '@tiptap/extension-list-item';
 import Paragraph from '@tiptap/extension-paragraph';
@@ -35,11 +36,12 @@ export type VariablesConfig = {
 };
 
 type ExtensionProps = {
-  variables?: VariablesConfig
+  placeholder: string,
+  variables?: VariablesConfig,
 };
 
 export const extensions = ({
-  variables,
+  variables, placeholder,
 }: ExtensionProps) => {
 
   const items = [
@@ -55,6 +57,9 @@ export const extensions = ({
     Image,
     Superscript,
     Subscript,
+    Placeholder.configure({
+      placeholder: placeholder,
+    }),
     Color.configure({ types: [TextStyle.name, ListItem.name] }),
     TextStyle.configure(),
     TextAlign.configure({ types: [Paragraph.name, Heading.name] }),
@@ -75,7 +80,6 @@ export const extensions = ({
     TableRow,
     TableHeader,
     TableCell,
-
 
     FontSize,
   ];

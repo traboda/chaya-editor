@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import clsx from 'clsx';
@@ -14,6 +15,7 @@ export type ChayaEditorProps = {
   isDisabled?: boolean,
   onChange?: (value: string) => void,
   variables?: VariablesConfig,
+  placeholder?: string,
   menuBar?: {
     className?: string,
     position?: 'TOP' | 'BOTTOM',
@@ -29,22 +31,21 @@ const DEFAULT_MENU_BAR_GROUPS: EditorMenuGroupType[] = [
   { commands: [ { name: 'UNDO' }, { name: 'REDO' }] },
   { commands: [ { name: 'FONT_SIZE' } ] },
   {
-    commands: [
-      { name: 'BOLD' }, { name: 'ITALIC' }, { name: 'UNDERLINE' }, { name: 'STRIKE' },
-      { name: 'COLOR' },
-    ],
+    commands: [{ name: 'BOLD' }, { name: 'ITALIC' }, { name: 'UNDERLINE' }, { name: 'STRIKE' }, { name: 'COLOR' }],
   },
   {
-    commands: [
-      { name: 'LEFT_ALIGN' }, { name: 'CENTER_ALIGN' }, { name: 'RIGHT_ALIGN' }, { name: 'JUSTIFY_ALIGN' },
-    ],
+    commands: [{ name: 'LEFT_ALIGN' }, { name: 'CENTER_ALIGN' }, { name: 'RIGHT_ALIGN' }, { name: 'JUSTIFY_ALIGN' }],
   },
   {
     commands: [
       { name: 'SUPERSCRIPT' }, { name: 'SUBSCRIPT' }, { name: 'CODE' }, { name: 'BLOCKQUOTE' }, { name: 'TABLE' },
     ],
   },
-  { commands: [ { name: 'ORDERED_LIST' }, { name: 'BULLET_LIST' }, { name: 'TASK_LIST' }, { name: 'INDENT_INCREASE' }, { name: 'INDENT_DECREASE' }] },
+  { commands: [
+    { name: 'ORDERED_LIST' }, { name: 'BULLET_LIST' }, { name: 'TASK_LIST' },
+    { name: 'INDENT_INCREASE' }, { name: 'INDENT_DECREASE' },
+  ],
+  },
 ];
 
 const DEFAULT_BUBBLE_MENU_COMMANDS: EditorMenuGroupType[] = [
@@ -56,7 +57,7 @@ const DEFAULT_BUBBLE_MENU_COMMANDS: EditorMenuGroupType[] = [
 ];
 
 const ChayaEditor = ({
-  id, className, editorClassName, value = '',
+  id, className, editorClassName, value = '', placeholder = 'Type something...',
   variables, menuBar = { position: 'TOP' }, bubbleMenu = {},
   isDisabled = false,
   onChange = () => {},
@@ -84,7 +85,7 @@ const ChayaEditor = ({
 
   const editor = useEditor({
     extensions: extensions({
-      variables,
+      variables, placeholder,
     }),
     editable: !isDisabled,
     editorProps: {

@@ -47,32 +47,30 @@ const FontSizeSelector = ({ editor }: { editor: Editor }) => {
   const options = STD_SIZES.includes(selectionSize) ? STD_SIZES : [...STD_SIZES, selectionSize].sort((a, b) => a - b);
 
   return (
-      <div className="flex items-center space-x-3">
-          <div className="flex items-center gap-0.5">
-              <button
-                  onClick={lowerFontSize}
-                  className="ri-subtract-fill px-1 py-0.5 text-lg rounded hover:bg-neutral-300/50"
-              />
-              <SimpleSelect
-                  value={selectionSize}
-                  className="w-[45px] px-2 py-0.5 rounded"
-                  dropdownClassName="!w-[64px] chaya-editor-font-size-dropdown"
-                  hideArrow
-                  onChange={updateFontSize}
-                  name="font_size"
-                  hideLabel
-                  labels={{ label: 'Font Size', create: '', placeholder: selectionSize.toString() }}
-                  isCreatable
-                  onCreate={(val) => updateFontSize(parseInt(val))}
-                  options={[
-                    ...options.map((size) => ({ label: size.toString(), value: size })),
-                  ]}
-              />
-              <button
-                  onClick={higherFontSize}
-                  className="ri-add-fill text-lg px-1 py-0.5 rounded hover:bg-neutral-300/50"
-              />
-          </div>
+      <div className="flex items-center gap-0.5">
+          <button
+              onClick={lowerFontSize}
+              className="ri-subtract-fill px-1 py-0.5 text-lg rounded hover:bg-neutral-300/50"
+          />
+          <SimpleSelect
+              value={selectionSize}
+              className="!w-[45px] px-2 !py-0.5 rounded"
+              dropdownClassName="!w-[64px] chaya-editor-font-size-dropdown"
+              hideArrow
+              onChange={updateFontSize}
+              name="font_size"
+              hideLabel
+              labels={{ label: 'Font Size', create: '', placeholder: selectionSize.toString() }}
+              isCreatable
+              onCreate={(val) => updateFontSize(parseInt(val))}
+              options={[
+                ...options.map((size) => ({ label: size.toString(), value: size })),
+              ]}
+          />
+          <button
+              onClick={higherFontSize}
+              className="ri-add-fill text-lg px-1 py-0.5 rounded hover:bg-neutral-300/50"
+          />
       </div>
   );
 
