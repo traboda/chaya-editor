@@ -1,7 +1,8 @@
 'use client';
-import React from 'react';
+import React, { useImperativeHandle } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import clsx from 'clsx';
+import { Editor } from '@tiptap/core';
 
 import BubbleMenu from './BubbleMenu';
 import { extensions, VariablesConfig } from './extensions';
@@ -56,12 +57,22 @@ const DEFAULT_BUBBLE_MENU_COMMANDS: EditorMenuGroupType[] = [
   },
 ];
 
-const ChayaEditor = ({
-  id, className, editorClassName, value = '', placeholder = 'Type something...',
-  variables, menuBar = { position: 'TOP' }, bubbleMenu = {},
-  isDisabled = false,
-  onChange = () => {},
-}: ChayaEditorProps) => {
+export type ChayaEditorRefType = {
+  editor: Editor | null,
+  focus: () => void,
+  clear: () => void,
+};
+
+
+const ChayaEditor = React.forwardRef<ChayaEditorRefType>((
+  {
+    id, className, editorClassName, value = '', placeholder = 'Type something...',
+    variables, menuBar = { position: 'TOP' }, bubbleMenu = {},
+    isDisabled = false,
+    onChange = () => {},
+  }: ChayaEditorProps,
+  ref?: React.ForwardedRef<ChayaEditorRefType>,
+) => {
 
   const parseValue = (value: string) => {
     if (variables) {
@@ -100,6 +111,12 @@ const ChayaEditor = ({
     },
   });
 
+  useImperativeHandle(ref, () => ({
+    editor,
+    focus: () => editor?.chain().focus().run(),
+    clear: () => editor?.chain().clearContent().run(),
+  }));
+
   const renderMenuBar = menuBar && editor ? (
       <div
           className={clsx([
@@ -128,6 +145,6 @@ const ChayaEditor = ({
       </div>
   ) : <div />;
 
-};
+});
 
 export default ChayaEditor;

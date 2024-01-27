@@ -2,6 +2,7 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 
 import { ChayaEditor, ChayaEditorProps } from '../index';
+import { ChayaEditorRefType } from '../components/Editor';
 
 import { SAMPLE_EDITOR_CONTENT } from './utils/sample-content';
 
@@ -17,8 +18,19 @@ export default meta;
 
 const Template: Story<ChayaEditorProps> = args => {
 
+  const ref = React.useRef<ChayaEditorRefType>(null);
+
   return (
-      <ChayaEditor {...args} />
+      <div>
+          <ChayaEditor ref={ref} {...args} />
+          <div className="mt-2">
+              The following buttons use ref
+              <div className="flex flex-wrap gap-2">
+                  <button onClick={() => ref.current?.clear()}>Clear</button>
+                  <button onClick={() => ref.current?.focus()}>Focus</button>
+              </div>
+          </div>
+      </div>
   );
 
 };

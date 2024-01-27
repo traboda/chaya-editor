@@ -1,6 +1,6 @@
 {
   "name": "chaya-editor",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "description": "A powerful and flexible text editor for React, built with Tiptap.",
   "scripts": {
     "tailwind": "tailwindcss -i ./src/style.scss -o ./dist/style.css -c ./tailwind.config.cjs",
