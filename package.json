@@ -1,6 +1,6 @@
 {
   "name": "chaya-editor",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "A powerful and flexible text editor for React, built with Tiptap.",
   "scripts": {
     "tailwind": "tailwindcss -i ./src/style.scss -o ./dist/style.css -c ./tailwind.config.cjs",
@@ -84,6 +84,7 @@
     "rollup-plugin-dts": "^5.1.1",
     "rollup-plugin-polyfill-node": "^0.11.0",
     "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-preserve-directives": "^0.2.0",
     "sass": "^1.57.1",
     "sass-loader": "^13.2.0",
     "storybook": "^7.6.4",
@@ -96,12 +97,6 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "files": [
-    "dist"
-  ],
-  "types": "dist/index.d.ts",
   "dependencies": {
     "@docs.plus/extension-hyperlink": "^1.5.2",
     "@tiptap/extension-color": "^2.1.13",
@@ -115,5 +110,10 @@
     "@tiptap/extension-text-style": "^2.1.13",
     "@tiptap/suggestion": "^2.1.13",
     "chaya-ui": "1.0.0-beta.74"
-  }
+  },
+  "files": [
+    "dist"
+  ],
+  "module": "dist/src/index.js",
+  "types": "dist/types/index.d.ts"
 }

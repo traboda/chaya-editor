@@ -8,11 +8,15 @@
     "jsx": "react",
     "module": "esnext",
     "declaration": true,
-    "declarationDir": "types",
+    "declarationDir": "dist/types",
     "sourceMap": true,
     "outDir": "dist",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "emitDeclarationOnly": true,
+    "typeRoots": [
+      "src/types",
+      "node_modules/@types"
+    ]
   }
 }
